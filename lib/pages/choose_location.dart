@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:world_time/services/world_time.dart';
 
 class ChooseLocation extends StatefulWidget {
   const ChooseLocation({super.key});
@@ -8,6 +9,17 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+
+  List<WorldTime> location = [
+    WorldTime(url: "Africa/Lusaka", location: "Lusaka", flag: 'zambia.svg'),
+    WorldTime(url: "Europe/London", location: "London", flag: 'uk.svg'),
+    WorldTime(url: "America/New_York", location: "New York", flag: 'usa.svg'),
+    WorldTime(url: "America/Chicago", location: "Chicago", flag: 'usa.svg'),
+    WorldTime(url: "Africa/Cairo", location: "Cairo", flag: 'egypt.svg'),
+    WorldTime(url: "Asia/Seoul", location: "Seoul", flag: 'south_korea.svg'),
+    WorldTime(url: "Europe/Berlin", location: "Berlin", flag: 'greece.svg'),
+    WorldTime(url: "Asia/Jakarta", location: "Jakarta", flag: 'indonesia.svg '),
+  ];
 
   @override
   Widget build(BuildContext context) {
