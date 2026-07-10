@@ -7,7 +7,7 @@ class WorldTime {
   String? time; // Time in that location
   String? flag; //url to and asset flag icon
   String? url; // Location url for API endpoint
-  bool isDaytime = true; // true or false if daytime or night time
+  bool? isDaytime; // true or false if daytime or night time
 
   WorldTime({this.location, this.flag, this.url});
 
@@ -16,7 +16,8 @@ class WorldTime {
 
     try{
       // Make request
-      final Response response = await get(Uri.parse('http://time.now/developer/api/timezone/$url'),);
+      final Response response = await get(Uri.parse('https://time.now/developer/api/timezone/$url'),);
+      // final Response response = await get(Uri.parse('https://timeapi.io/api/timezone/zone?timeZone=$url'),);
       Map data = jsonDecode(response.body);
       // print(data);
 
@@ -27,6 +28,7 @@ class WorldTime {
       //This is because the offset is in the format of +02:00 or -05:00, 
       //and we only want the hour part of it.
       String offset = data["utc_offset"].substring(1, 3); 
+      // String offset = data["currentUtcOffset"]["hours"].toString();
 
       // print("Offset: $offset");
       // print("Date Time: $dateTime");
@@ -43,12 +45,11 @@ class WorldTime {
 
     }
     catch (e){
-      // print("Caught error: $e");
-      time = "Enable to get data!";
+      print("Caught error: $e");
+      time = "Unable to get data!";
     }
     
   }
 
 }
 
-//WorldTime wt =WorldTime(location: 'Lusaka', flag: "Zed.png", url: "Africa/Lusaka");

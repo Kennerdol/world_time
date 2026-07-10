@@ -11,15 +11,33 @@ class ChooseLocation extends StatefulWidget {
 class _ChooseLocationState extends State<ChooseLocation> {
 
   List<WorldTime> locations = [
-    WorldTime(url: "Africa/Lusaka", location: "Lusaka", flag: 'zambia.svg'),
-    WorldTime(url: "Europe/London", location: "London", flag: 'uk.svg'),
-    WorldTime(url: "America/New_York", location: "New York", flag: 'usa.svg'),
-    WorldTime(url: "America/Chicago", location: "Chicago", flag: 'usa.svg'),
-    WorldTime(url: "Africa/Cairo", location: "Cairo", flag: 'egypt.svg'),
-    WorldTime(url: "Asia/Seoul", location: "Seoul", flag: 'south_korea.svg'),
-    WorldTime(url: "Europe/Berlin", location: "Berlin", flag: 'greece.svg'),
-    WorldTime(url: "Asia/Jakarta", location: "Jakarta", flag: 'indonesia.svg '),
+    WorldTime(url: "Africa/Lusaka", location: "Lusaka", flag: 'zambia.png'),
+    WorldTime(url: "Europe/London", location: "London", flag: 'uk.png'),
+    WorldTime(url: "America/New_York", location: "New York", flag: 'usa.png'),
+    WorldTime(url: "America/Chicago", location: "Chicago", flag: 'usa.png'),
+    WorldTime(url: "Africa/Cairo", location: "Cairo", flag: 'egypt.png'),
+    WorldTime(url: "Asia/Seoul", location: "Seoul", flag: 'south_korea.png'),
+    WorldTime(url: "Europe/Berlin", location: "Berlin", flag: 'greece.png'),
+    WorldTime(url: "Asia/Jakarta", location: "Jakarta", flag: 'indonesia.png'),
   ];
+
+  void updateTime(index) async{
+    WorldTime instance = locations[index];
+    await instance.getTime();
+
+    print(instance.location);
+    print(instance.time);
+    print(instance.isDaytime);
+
+    // Navigatt to home screen
+     Navigator.pop(context, {
+      "location": instance.location, 
+      "flag": instance.flag, 
+      "time": instance.time,
+      "isDaytime": instance.isDaytime,
+    });
+     
+  }
 
   @override 
   Widget build(BuildContext context) {
@@ -36,13 +54,17 @@ class _ChooseLocationState extends State<ChooseLocation> {
       body: ListView.builder(
         itemCount: locations.length,
         itemBuilder: (context, index){
-          return Card(
-            child: ListTile(
-              onTap: (){},
-              title: Text(locations[index].location??""),
-              leading: CircleAvatar(
-                radius: 50.0,
-                backgroundImage: AssetImage("assets/images/flags/${locations[index].flag}"),
+          return Padding(    
+            padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+            child: Card(
+              child: ListTile(
+                onTap: (){
+                  updateTime(index);
+                },
+                title: Text(locations[index].location??""),
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage("assets/images/flags/${locations[index].flag}"),
+                ),
               ),
             ),
           );

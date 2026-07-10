@@ -15,11 +15,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    data = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ?? {};
+    data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ?? {};
     // print(data);
 
     //Set background image
-    String bgImage = data['isDaytime']? 'day.jpg' : 'night.jpg'; //#0283cb
+    String bgImage = data['isDaytime']? 'day.jpg' : 'night.jpg';
     Color bgColor = data['isDaytime']? const Color.fromARGB(255, 2, 131, 203) : const Color.fromARGB(255, 18, 31, 57);
 
 
@@ -38,8 +38,18 @@ class _HomeState extends State<Home> {
             child: Column(
               children: [
                 TextButton.icon(
-                  onPressed: (){
-                    Navigator.pushNamed(context, "/location");
+                  onPressed: () async{
+                    dynamic result = await Navigator.pushNamed(context, "/location");
+                    if(result != null){
+                      setState(() {
+                        data = {
+                          'time': result['time'],
+                          'location': result['location'],
+                          'flag': result['flag'],
+                          'isDaytime': result['isDaytime']
+                        };
+                      });
+                    }
                   },
                   icon: Icon(
                     Icons.edit_location,
