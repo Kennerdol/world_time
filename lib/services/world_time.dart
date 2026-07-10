@@ -7,7 +7,7 @@ class WorldTime {
   String? time; // Time in that location
   String? flag; //url to and asset flag icon
   String? url; // Location url for API endpoint
-  bool? isDaytime; // true or false if daytime or night time
+  bool isDaytime = true; // true or false if daytime or night time
 
   WorldTime({this.location, this.flag, this.url});
 
@@ -35,7 +35,7 @@ class WorldTime {
       // // Create a DateTime object
       DateTime now = DateTime.parse(dateTime);
       now  = now.add(Duration(hours: int.parse(offset)));
-      print(" Now: $now");
+      // print(" Now: $now");
 
       // Set time property
       isDaytime =  now.hour >= 01 && now.hour <= 23 ? true: false;
