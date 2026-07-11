@@ -16,10 +16,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
 
     data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ?? {};
-    // print(data);
+    print(data);
 
     //Set background image
-    String bgImage = data['isDaytime']? 'day.jpg' : 'night.jpg';
+    String bgImage = data['isDaytime'] ? 'day.jpg' : 'night.jpg';
     Color bgColor = data['isDaytime']? const Color.fromARGB(255, 2, 131, 203) : const Color.fromARGB(255, 18, 31, 57);
 
 

@@ -40,12 +40,11 @@ class WorldTime {
       // print(" Now: $now");
 
       // Set time property
-      isDaytime =  now.hour >= 01 && now.hour <= 23 ? true: false;
+      isDaytime =  now.hour >= 06 && now.hour <= 18 ? true: false;
       time = DateFormat.jm().format(now);
 
     }
     catch (e){
-      print("Caught error: $e");
       time = "Unable to get data!";
     }
     
